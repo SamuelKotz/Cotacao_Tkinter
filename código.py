@@ -1,0 +1,43 @@
+from tkinter import *
+import requests
+
+
+## Créditos: Hastag Programação.
+def pegar_cotacoes():
+    requisicao = requests.get("https://economia.awesomeapi.com.br/last/USD-BRL,EUR-BRL,BTC-BRL")
+
+    requisicao_dic = requisicao.json()
+
+    cotacao_dolar = requisicao_dic['USDBRL']['bid']
+    cotacao_euro = requisicao_dic['EURBRL']['bid']
+    cotacao_btc = requisicao_dic['BTCBRL']['bid']
+
+    texto = f'''
+    Dólar: R$ {cotacao_dolar}
+    Euro: R$ {cotacao_euro}
+    BTC: R$ {cotacao_btc}'''
+
+    texto_cota["text"] = texto
+    texto_info["text"] = "Cotação fornecida com sucesso."
+ 
+
+
+
+
+janela = Tk()
+janela.title("Cotação Dolar Euro e BTC para Reais")
+
+texto_info = Label(janela, text="Clique no botão abaixo para ver as cotações das moedas atualizadas")
+texto_info.grid(column=0, row=0)
+
+espaco = Label(janela, text=" ")
+espaco.grid(column=0, row=1)
+
+botao = Button(janela, text="Buscar cotações atualizadas", command=pegar_cotacoes)
+botao.grid(column=0, row=2)
+
+texto_cota = Label(janela, text=" ")
+texto_cota.grid(column=0, row=3)
+
+
+janela.mainloop()
