@@ -1,6 +1,12 @@
 from tkinter import *
 import requests
+from datetime import datetime
+from pytz import timezone
 
+data_e_hora_atuais = datetime.now()
+fuso_horario = timezone("America/Sao_Paulo")
+data_e_hora_sao_paulo = data_e_hora_atuais.astimezone(fuso_horario)
+data_e_hora_sao_paulo_em_texto = data_e_hora_sao_paulo.strftime("%d/%m/%Y, Horário de Brasília: %H:%M")
 
 ## Créditos: Hastag Programação.
 def pegar_cotacoes():
@@ -18,8 +24,8 @@ def pegar_cotacoes():
     BTC: R$ {cotacao_btc}'''
 
     texto_cota["text"] = texto
-    texto_info["text"] = "Cotação fornecida com sucesso."
- 
+    texto_info["text"] = (f"Cotações da data: {data_e_hora_sao_paulo_em_texto}.")
+    botao["text"] = "Cotação fornecida com sucesso!" 
 
 
 
